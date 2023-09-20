@@ -16,7 +16,9 @@ namespace Full_GRASP_And_SOLID
         private static ArrayList productCatalog = new ArrayList();
 
         private static ArrayList equipmentCatalog = new ArrayList();
-
+        /* Usando el patrón polimorfismo, creamos una interfaz IPrinter y dos clases ("ConsolePrinter" y "FilePrinter")
+        que heredan de la interfaz. Debido a que ambas clases toman el método correspondinte 
+        de IPrinter, consideramos que cumple LSP.*/
         public static void Main(string[] args)
         {
             PopulateCatalogs();
@@ -26,9 +28,15 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
+            /*AllInOnePrinter printer = new AllInOnePrinter();
             printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            printer.PrintRecipe(recipe, Destination.File);*/
+
+            IPrinter printer;
+            printer = new ConsolePrinter();
+            printer.Print(recipe);
+            printer = new FilePrinter();
+            printer.Print(recipe);
         }
 
         private static void PopulateCatalogs()
